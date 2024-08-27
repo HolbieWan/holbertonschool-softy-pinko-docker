@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: softy-pinko-backend
+    ports:
+      - "5252:5252"
+    networks:
+      - softy-network
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: softy-pinko-frontend
+    ports:
+      - "9000:9000"
+    networks:
+      - softy-network
+    depends_on:
+      - backend
+
+networks:
+  softy-network:
+    driver: bridge
